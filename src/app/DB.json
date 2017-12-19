@@ -1,0 +1,9 @@
+{
+    "students": [{
+        "id": 1,
+        "FName": "Manav",
+        "LName": "Pandya",
+        "Email": "pandya.manav@gmail.com",
+        "Phone": "9898827913"
+    }]
+}
