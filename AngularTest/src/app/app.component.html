@@ -1,0 +1,121 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+    <h1>
+        Welcome to {{ title }}!
+    </h1>
+    <hr>
+</div>
+
+
+<!-- Main Content Portion -->
+<h3 *ngIf="articleIdToUpdate; else create">
+    Update Article for Id: {{articleIdToUpdate}}
+</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <ng-template #create>
+                <h3 style="text-align: center;"> Create New Employee </h3>
+            </ng-template>
+            <form [formGroup]="employeeForm" (ngSubmit)="onemployeeFormSubmit()">
+                <table>
+                    <tr>
+                        <td>Enter First Name :</td>
+                        <td><input formControlName="FirstName">
+                            <label *ngIf="employeeForm.get('FirstName').invalid && processValidation" [ngClass]="'error'"> First Name is required. </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enter Last Name :</td>
+                        <td><input formControlName="LastName">
+                            <label *ngIf="employeeForm.get('LastName').invalid && processValidation" [ngClass]="'error'"> Last Name is required. </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enter Email:</td>
+                        <td><input formControlName="Email">
+                            <label *ngIf="employeeForm.get('Email').invalid && processValidation" [ngClass]="'error'"> Email is required. </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enter Mobile Number:</td>
+                        <td><input formControlName="Phone">
+                            <label *ngIf="employeeForm.get('Phone').invalid && processValidation" [ngClass]="'error'"> Mobile Number is required. </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enter Blog Name :</td>
+                        <td><input formControlName="Blog">
+                            <label *ngIf="employeeForm.get('Blog').invalid && processValidation" [ngClass]="'error'"> Postal Code is required. </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <button *ngIf="!recordToUpdate">CREATE</button>
+                            <button *ngIf="recordToUpdate">UPDATE</button>
+                            <button (click)="backToCreateEmployee()" *ngIf="recordToUpdate">Go Back</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <br/>
+            <div *ngIf="statusCode; else processing">
+                <div *ngIf="statusCode === 201" [ngClass]="'success'">
+                    Article added successfully.
+                </div>
+                <div *ngIf="statusCode === 409" [ngClass]="'success'">
+                    Article already exists.
+                </div>
+                <div *ngIf="statusCode === 200" [ngClass]="'success'">
+                    Article updated successfully.
+                </div>
+                <div *ngIf="statusCode === 204" [ngClass]="'success'">
+                    Article deleted successfully.
+                </div>
+                <div *ngIf="statusCode === 500" [ngClass]="'error'">
+                    Internal Server Error.
+                </div>
+            </div>
+            <ng-template #processing>
+                <img *ngIf="requestProcessing" src="../assets/images/loading.gif">
+            </ng-template>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+</div>
+
+
+<!-- To Show Added Records -->
+<h3 style="text-align: center;">Employee Details</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 text-center">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Mobile No</th>
+                    <th>Blog</th>
+                </tr>
+                <tr *ngFor="let emp of employees">
+                    <td>{{emp.id}}</td>
+                    <td>{{emp.FirstName}}</td>
+                    <td>{{emp.LastName}}</td>
+                    <td>{{emp.Email}}</td>
+                    <td>{{emp.Phone}}</td>
+                    <td>{{emp.Blog}}</td>
+                    <td><button type="button" (click)="GetEmployeetById(emp.id)">Edit</button> </td>
+                    <td><button type="button" (click)="DeleteEmployee(emp.id)">Delete</button></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
