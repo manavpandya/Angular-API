@@ -77,7 +77,7 @@ namespace Angular_WEBAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            // Hello
             _context.EmployeeDetails.Add(new EmployeeDetail()
             {
                 //id = Convert.ToInt32(empdetail["id"]),
